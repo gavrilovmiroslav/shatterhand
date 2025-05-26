@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9e4975c31c42ec40bcbc4ac1ffab2d8, type: 3}
+  m_Name: '[DECK] Paladin'
+  m_EditorClassIdentifier: 
+  Hero: {fileID: 11400000, guid: fced791ae107e524d8007430acdd9546, type: 2}
+  Units:
+  - {fileID: 11400000, guid: dd2c5e4e5b3fda948b2531b43418a571, type: 2}
+  - {fileID: 11400000, guid: dd2c5e4e5b3fda948b2531b43418a571, type: 2}
+  - {fileID: 11400000, guid: dd2c5e4e5b3fda948b2531b43418a571, type: 2}
+  - {fileID: 11400000, guid: e8bab3b7b90ba5748921f0cb517cfbaf, type: 2}
+  - {fileID: 11400000, guid: 4d19016eaf02bab4e9d847d37eed8f41, type: 2}
+  - {fileID: 11400000, guid: e8bab3b7b90ba5748921f0cb517cfbaf, type: 2}
+  - {fileID: 11400000, guid: 4d19016eaf02bab4e9d847d37eed8f41, type: 2}
+  - {fileID: 11400000, guid: 4d19016eaf02bab4e9d847d37eed8f41, type: 2}
+  - {fileID: 11400000, guid: 1bc5bb3ff1c04f94abfbaf9eb4a4d537, type: 2}
+  - {fileID: 11400000, guid: 6f5379063e49dd44f9ffd3eef57fe90e, type: 2}

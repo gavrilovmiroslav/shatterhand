@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a36c0a12e574d2438215ac0b66a6c61, type: 3}
+  m_Name: Knucklebones
+  m_EditorClassIdentifier: 
+  Image: {fileID: 21300000, guid: 3917c2a11c4ea604f8350170840c5863, type: 3}
+  Cost: 1
+  Name: Knucklebones
+  Description: 
+  Effect:
+    space1: 0
+    space2: 0
+    space3: 0
+    space4: 0
+    space5: 0
+    space6: 0
+    space7: 0
+    space8: 0
+    space9: 0
+    space10: 0
+    space11: 0
+    space12: 0
+    space13: 0
+    space14: 0
+    space15: 0
+    space16: 0
+    space17: 1
+    space18: 1
+    space19: 1
+    space20: 0
+    space21: 0
+    space22: 0
+    space23: 0
+    space24: 1
+    space25: 0
+    space26: 1
+    space27: 0
+    space28: 0
+    space29: 0
+    space30: 0
+    space31: 1
+    space32: 1
+    space33: 1
+    space34: 0
+    space35: 0
+    space36: 0
+    space37: 0
+    space38: 0
+    space39: 0
+    space40: 0
+    space41: 0
+    space42: 0
+    space43: 0
+    space44: 0
+    space45: 0
+    space46: 0
+    space47: 0
+    space48: 0
+    space49: 0
+  Abilities: []
