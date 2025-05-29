@@ -1,3 +1,5 @@
+using DG.Tweening;
+
 using UnityEngine;
 
 public class CardDetails : MonoBehaviour
@@ -25,15 +27,19 @@ public class CardDetails : MonoBehaviour
     public Sprite ImageEmpty;
     public Sprite ImageFull;
     public Sprite ImagePositive;
-    
+    public Vector2 StartPosition;
+    public Vector2 DeltaPosition;
+    public bool NonPlayCard = false;
+
     private void Start()
     {
-        Background = this.GetComponent<SpriteRenderer>();
+        StartPosition = new Vector2(this.transform.localPosition.x, this.transform.localPosition.y);
         Image = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
         Title = this.transform.GetChild(1).gameObject.GetComponent<TMPro.TextMeshPro>();
         Cost = this.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>();
         Description = this.transform.GetChild(3).GetComponent<TMPro.TextMeshPro>();
         Grid = this.transform.GetChild(4);
+        Background = this.transform.GetChild(5).GetComponent<SpriteRenderer>();
         m_SelectedCardLayer = SortingLayer.NameToID("SelectedCard");
     }
 
@@ -53,7 +59,6 @@ public class CardDetails : MonoBehaviour
         }
         
         Title.sortingLayerID = layer;
-        Title.GetComponentInChildren<SpriteRenderer>().sortingLayerID = layer;
         Cost.sortingLayerID = layer;
         Cost.GetComponentInChildren<TMPro.TextMeshPro>().sortingLayerID = layer;
         Description.sortingLayerID = layer;
@@ -67,22 +72,26 @@ public class CardDetails : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if (NonPlayCard) return;
         if (GameManager.Instance.Phase == this.Phase)
         {
             IsSelected = true;
             var t = this.transform.localPosition;
-            t.x = -0.12f + (this.Phase == TurnPhase.Left ? -0.28f : 0.28f);
+            t.x = StartPosition.x + DeltaPosition.x;
+            t.y = StartPosition.y + DeltaPosition.y;
             this.transform.localPosition = t;
         }
     }
 
     private void OnMouseExit()
     {
+        if (NonPlayCard) return;
         if (GameManager.Instance.Phase == this.Phase)
         {
             IsSelected = false;
             var t = this.transform.localPosition;
-            t.x = -0.12f;
+            t.x = StartPosition.x;
+            t.y = StartPosition.y;
             this.transform.localPosition = t;
         }
     }
@@ -91,7 +100,7 @@ public class CardDetails : MonoBehaviour
     {
         Board.Instance.OnTileSelected.RemoveListener(ChooseTileAndPutUnit);
         BoardFunctions.ChooseNothing(Board.Instance);
-
+        GameManager.Instance.SelectedCard.transform.DOLocalMove(GameManager.Instance.HintPivotDown, 0.5f);
         tile.SetPiece(this.Piece, this.Phase);
         GameManager.Instance.RegisterSpawn(tile);
         BoardFunctions.AnimateNewTargetsOfTile(tile, this);
@@ -117,12 +126,13 @@ public class CardDetails : MonoBehaviour
                 for (int i = 0; i < 49; i++)
                 {
                     var dx = i % 7;
+                    dx = 6 - dx;
                     if (Phase == TurnPhase.Right)
                     {
                         dx = 6 - dx;
                     }
                     var dy = i / 7;
-                    var j = dx + dy * 7;
+                    var j = dy + dx * 7;
                     var piece = Grid.GetChild(j);
                     var renderer = piece.GetComponent<SpriteRenderer>();
                     renderer.sprite = ImageEmpty;
@@ -146,10 +156,10 @@ public class CardDetails : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Board.CancelPutUnit();
-                var selected = this.transform.parent.parent.GetChild(2);
+                var selected = GameManager.Instance.SelectedCard.transform;
+                this.transform.parent.DOLocalMove(GameManager.Instance.HandPivotDown, 0.5f);
                 GameManager.Instance.SelectedPiece.Set(this.Piece);
-                GameManager.Instance.SelectedPieceHolder = selected;
-                selected.gameObject.SetActive(true);
+                selected.DOLocalMove(GameManager.Instance.HintPivotUp, 0.5f);
                 var cardDetails = selected.GetComponent<CardDetails>();
                 cardDetails.Phase = this.Phase;
                 cardDetails.Piece.Set(this.Piece);

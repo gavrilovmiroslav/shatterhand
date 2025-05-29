@@ -2,13 +2,18 @@ using Arrow;
 
 using Cinemachine;
 
+using DG.Tweening;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using TMPro;
+
 using Unity.VisualScripting;
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public enum TurnPhase
@@ -22,14 +27,14 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public CardDetails HintCard;
+    public CardDetails SelectedCard;
+
     public CinemachineVirtualCamera FrontCamera;
 
     public CinemachineVirtualCamera LeftCamera;
-    public CardDetails LeftCameraSelectedCard;
     public PlayerHand LeftPlayerHand;
 
     public CinemachineVirtualCamera RightCamera;
-    public CardDetails RightCameraSelectedCard;
     public PlayerHand RightPlayerHand;
 
     public TMPro.TextMeshPro TurnCounter;
@@ -38,6 +43,8 @@ public class GameManager : MonoBehaviour
 
     public TMPro.TextMeshPro LeftSacrificeCounter;
     public TMPro.TextMeshPro RightSacrificeCounter;
+
+    public GameObject EndTurnButton;
 
     [Space(10)]
     public Deck LeftDeck;
@@ -55,7 +62,6 @@ public class GameManager : MonoBehaviour
 
     public TurnPhase Phase;
     public PieceInstance SelectedPiece = new();
-    public Transform SelectedPieceHolder;
 
     public GameObject EffectHint;
 
@@ -65,6 +71,12 @@ public class GameManager : MonoBehaviour
 
     public int LeftSacrifice = 0;
     public int RightSacrifice = 0;
+
+    public Vector3 HandPivotUp;
+    public Vector3 HandPivotDown;
+
+    public Vector3 HintPivotUp;
+    public Vector3 HintPivotDown;
 
     private bool Done = false;
     private HashSet<BoardTile> m_SpawnedTiles = new();
@@ -118,6 +130,17 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
 
+        HintPivotDown = HintCard.transform.localPosition;
+        HintPivotUp = HintCard.transform.localPosition + new Vector3(0.7f, 7.5f, 0);
+
+        HintCard.transform.position = HintPivotDown;
+
+        HandPivotUp = LeftPlayerHand.transform.localPosition;
+        HandPivotDown = LeftPlayerHand.transform.localPosition - new Vector3(0, 5, 0);
+
+        LeftPlayerHand.transform.position = HandPivotDown;
+        RightPlayerHand.transform.position = HandPivotDown;
+
         LeftSpawnTile.SetPiece(LeftDeck.Hero, TurnPhase.Left);
         RightSpawnTile.SetPiece(RightDeck.Hero, TurnPhase.Right);
 
@@ -132,7 +155,7 @@ public class GameManager : MonoBehaviour
         FrontCamera.Priority = 1;
         RightCamera.Priority = 0;
         LeftCamera.Priority = 0;
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.2f);
     }
 
     private IEnumerator FocusLeftCamera()
@@ -140,7 +163,7 @@ public class GameManager : MonoBehaviour
         FrontCamera.Priority = 0;
         RightCamera.Priority = 0;
         LeftCamera.Priority = 1;
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.2f);
     }
 
     private IEnumerator FocusRightCamera()
@@ -148,7 +171,7 @@ public class GameManager : MonoBehaviour
         FrontCamera.Priority = 0;
         LeftCamera.Priority = 0;
         RightCamera.Priority = 1;
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.2f);
     }
 
     public IEnumerator TurnStart()
@@ -159,6 +182,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartLeftPlayerTurn()
     {
         Phase = TurnPhase.Left;
+        LeftPlayerHand.gameObject.SetActive(true);
+        LeftPlayerHand.transform.DOLocalMove(HandPivotUp, 0.5f);
         Board.Instance.UpdateValues(Phase);
         yield return FocusLeftCamera();
     }
@@ -166,12 +191,18 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartRightPlayerTurn()
     {
         Phase = TurnPhase.Right;
+        RightPlayerHand.gameObject.SetActive(true);
+        RightPlayerHand.transform.DOLocalMove(HandPivotUp, 0.5f);
+        LeftPlayerHand.transform.DOLocalMove(HandPivotDown, 0.5f);
         Board.Instance.UpdateValues(Phase);
         yield return FocusRightCamera();
     }
 
     public IEnumerator StartUpkeep()
     {
+        LeftPlayerHand.transform.DOLocalMove(HandPivotDown, 0.5f);
+        RightPlayerHand.transform.DOLocalMove(HandPivotDown, 0.5f);
+
         if (LeftSacrifice > 0) LeftSacrifice--;
         if (RightSacrifice > 0) RightSacrifice--;
 
@@ -193,6 +224,10 @@ public class GameManager : MonoBehaviour
         else
         {
             Turn++;
+            if (Turn == 9)
+            {
+                EndTurnButton.GetComponent<TMPro.TextMeshPro>().text = "Restart";
+            }
 
             var arr = Board.Instance.GetComponentsInChildren<BoardTile>();
             arr.Shuffle(0, arr.Length, 1.0f);
@@ -278,9 +313,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1) && SelectedPiece != null)
         {
-            Board.CancelPutUnit();
-            ClearSelectedCard();
-            Board.Instance.ClearSelectionFilter();
+            CancelSelection();
         }
 
         if (Done)
@@ -288,6 +321,22 @@ public class GameManager : MonoBehaviour
             Done = false;
             StartCoroutine(TurnEnd());
         }
+    }
+
+    public void CancelSelection()
+    {
+        Board.CancelPutUnit();
+        ClearSelectedCard();
+        SelectedCard.transform.DOLocalMove(HintPivotDown, 0.5f);
+        if (this.Phase == TurnPhase.Left)
+        {
+            LeftPlayerHand.transform.DOLocalMove(HandPivotUp, 0.5f);
+        }
+        else if (this.Phase == TurnPhase.Right)
+        {
+            RightPlayerHand.transform.DOLocalMove(HandPivotUp, 0.5f);
+        }
+        Board.Instance.ClearSelectionFilter();
     }
 
     public void RegisterSpawn(BoardTile tile)
@@ -321,7 +370,6 @@ public class GameManager : MonoBehaviour
     public void ClearSelectedCard()
     {
         SelectedPiece.Set((PieceInstance)null);
-        SelectedPieceHolder.gameObject.SetActive(false);
     }
 
     private List<GameObject> m_EffectHints = new();
@@ -362,6 +410,11 @@ public class GameManager : MonoBehaviour
 
     public void HardEndTurn()
     {
+        if (Turn >= 9)
+        {
+            SceneManager.LoadScene(0);
+        }
+
         if (Phase == TurnPhase.Left)
         {
             for (int i = 0; i < LeftPlayerHand.Cards.Count; i++)
@@ -387,7 +440,7 @@ public class GameManager : MonoBehaviour
             HintCard.gameObject.SetActive(true);
             HintCard.Phase = tile.Phase;
             HintCard.Piece.Set(tile.Piece);
-            HintCard.transform.position = tile.transform.position + new Vector3(0, -1, 0);
+            HintCard.transform.position = tile.transform.position;
         }
         else
         {
