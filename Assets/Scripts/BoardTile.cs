@@ -136,6 +136,7 @@ public class BoardTile : MonoBehaviour
         m_Back.color = m_StartingTileColor;
     }
 
+#if !UNITY_ANDROID
     public void OnMouseEnter()
     {
         if (this.Piece.Empty)
@@ -158,6 +159,47 @@ public class BoardTile : MonoBehaviour
     {
         Board.ToggleSelection(this);
     }
+#else
+    static BoardTile SelectedBoardTile = null;
+    static bool SelectionConfirmed = false;
+
+    public void OnMouseDown()
+    {
+        if (SelectedBoardTile != null)
+        {
+            if (SelectedBoardTile != this)
+            {
+                SelectedBoardTile = null;
+                SelectionConfirmed = false;
+            }
+            else
+            {
+                SelectionConfirmed = true;
+            }
+        }
+
+        GameManager.Instance.PreviewBoardTile(null);
+        GameManager.Instance.PreviewSelectedCardEffect(null);
+
+        if (this.Piece.Empty)
+        {
+            SelectedBoardTile = this;
+            GameManager.Instance.PreviewSelectedCardEffect(this);
+        }
+        else
+        {
+            GameManager.Instance.PreviewBoardTile(this);
+        }
+    }
+
+    public void OnMouseUpAsButton()
+    {
+        if (SelectionConfirmed)
+        {
+            Board.ToggleSelection(this);
+        }
+    }
+#endif
 
     public void ShowSelectionEdge()
     {

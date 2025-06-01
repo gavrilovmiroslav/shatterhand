@@ -11,6 +11,9 @@ public class VFXRegistry : MonoBehaviour
     public GameObject Debuff;
     public GameObject Discard;
     public GameObject Hit;
+    public GameObject Sustain;
+    public GameObject Ruin;
+    public GameObject Gift;
 
     public void Awake()
     {

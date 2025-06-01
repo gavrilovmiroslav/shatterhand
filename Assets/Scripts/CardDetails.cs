@@ -31,6 +31,10 @@ public class CardDetails : MonoBehaviour
     public Vector2 DeltaPosition;
     public bool NonPlayCard = false;
 
+#if UNITY_ANDROID
+    static CardDetails SelectedCardInHand = null;
+#endif
+
     private void Start()
     {
         StartPosition = new Vector2(this.transform.localPosition.x, this.transform.localPosition.y);
@@ -70,6 +74,21 @@ public class CardDetails : MonoBehaviour
         }
     }
 
+    void Choose()
+    {
+        Board.CancelPutUnit();
+        var selected = GameManager.Instance.SelectedCard.transform;
+        this.transform.parent.DOLocalMove(GameManager.Instance.HandPivotDown, 0.5f);
+        GameManager.Instance.SelectedPiece.Set(this.Piece);
+        selected.DOLocalMove(GameManager.Instance.HintPivotUp, 0.5f);
+        var cardDetails = selected.GetComponent<CardDetails>();
+        cardDetails.Phase = this.Phase;
+        cardDetails.Piece.Set(this.Piece);
+        BoardFunctions.ChooseAllEmptyWithPoints(Board.Instance, this.Piece.Cost);
+        Board.Instance.OnTileSelected.AddListener(ChooseTileAndPutUnit);
+    }
+
+#if !UNITY_ANDROID
     private void OnMouseEnter()
     {
         if (NonPlayCard) return;
@@ -95,6 +114,51 @@ public class CardDetails : MonoBehaviour
             this.transform.localPosition = t;
         }
     }
+#else
+    public void Deselect()
+    {
+        IsSelected = false;
+        var t = this.transform.localPosition;
+        t.x = StartPosition.x;
+        t.y = StartPosition.y;
+        this.transform.localPosition = t;
+    }
+
+    public void Select()
+    {
+        IsSelected = true;
+        var t = this.transform.localPosition;
+        t.x = StartPosition.x + DeltaPosition.x;
+        t.y = StartPosition.y + DeltaPosition.y;
+        this.transform.localPosition = t;
+    }
+
+    private void OnMouseDown()
+    {
+        if (NonPlayCard)
+        {
+            if (GameManager.Instance.HintCard == this)
+            {
+                GameManager.Instance.PreviewBoardTile(null);
+            }
+            return;
+        }
+
+        if (!IsSelected)
+        {
+            if (SelectedCardInHand != null)
+            {
+                SelectedCardInHand.Deselect();
+            }
+            Select();
+            SelectedCardInHand = this;
+        }
+        else
+        {
+            Choose();
+        }
+    }
+#endif
 
     private void ChooseTileAndPutUnit(BoardTile tile)
     {
@@ -106,6 +170,9 @@ public class CardDetails : MonoBehaviour
         BoardFunctions.AnimateNewTargetsOfTile(tile, this);
         Board.Instance.UpdateValues(tile.Phase);
         this.transform.parent.GetComponent<PlayerHand>().UpdateHandAfterUsing(this);
+        Board.Instance.ClearSelectionFilter();
+        Board.Instance.ClearSelection();
+        GameManager.Instance.PreviewSelectedCardEffect(null);
     }
 
     void Update()
@@ -151,21 +218,14 @@ public class CardDetails : MonoBehaviour
             m_CachedPiece = Piece.Name;
         }
 
+#if !UNITY_ANDROID
         if (GameManager.Instance.Phase == this.Phase && IsSelected)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Board.CancelPutUnit();
-                var selected = GameManager.Instance.SelectedCard.transform;
-                this.transform.parent.DOLocalMove(GameManager.Instance.HandPivotDown, 0.5f);
-                GameManager.Instance.SelectedPiece.Set(this.Piece);
-                selected.DOLocalMove(GameManager.Instance.HintPivotUp, 0.5f);
-                var cardDetails = selected.GetComponent<CardDetails>();
-                cardDetails.Phase = this.Phase;
-                cardDetails.Piece.Set(this.Piece);
-                BoardFunctions.ChooseAllEmptyWithPoints(Board.Instance, this.Piece.Cost);
-                Board.Instance.OnTileSelected.AddListener(ChooseTileAndPutUnit);
+                Choose();
             }
         }
+#endif
     }
 }

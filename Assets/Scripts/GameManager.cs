@@ -7,6 +7,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using TMPro;
 
@@ -131,7 +132,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         HintPivotDown = HintCard.transform.localPosition;
-        HintPivotUp = HintCard.transform.localPosition + new Vector3(0.7f, 7.5f, 0);
+        HintPivotUp = HintCard.transform.localPosition + new Vector3(0.7f, 7.0f, 0);
 
         HintCard.transform.position = HintPivotDown;
 
@@ -219,15 +220,18 @@ public class GameManager : MonoBehaviour
 
         if (Turn == 9)
         {
+            Turn = 10;
+            LeftScore += LeftSacrifice;
+            LeftSacrifice = 0;
+            RightScore += RightSacrifice;
+            RightSacrifice = 0;
+            
+            EndTurnButton.GetComponent<TMPro.TextMeshPro>().text = "Restart";
             yield return null;
         }
         else
         {
             Turn++;
-            if (Turn == 9)
-            {
-                EndTurnButton.GetComponent<TMPro.TextMeshPro>().text = "Restart";
-            }
 
             var arr = Board.Instance.GetComponentsInChildren<BoardTile>();
             arr.Shuffle(0, arr.Length, 1.0f);
@@ -290,20 +294,23 @@ public class GameManager : MonoBehaviour
             RightSacrificeCounter.text = "";
         }
 
-        this.LeftScore = 0;
-        this.RightScore = 0;
-
-        foreach (var (_, tile) in Board.Instance.m_Tiles)
+        if (Turn < 10)
         {
-            if (tile != null && tile.EndGame && tile.Piece != null)
+            this.LeftScore = 0;
+            this.RightScore = 0;
+
+            foreach (var (_, tile) in Board.Instance.m_Tiles)
             {
-                if (tile.Phase == TurnPhase.Left)
+                if (tile != null && tile.EndGame && tile.Piece != null)
                 {
-                    this.LeftScore += tile.Piece.Cost;
-                }
-                else if (tile.Phase == TurnPhase.Right)
-                {
-                    this.RightScore += tile.Piece.Cost;
+                    if (tile.Phase == TurnPhase.Left)
+                    {
+                        this.LeftScore += tile.Piece.Cost;
+                    }
+                    else if (tile.Phase == TurnPhase.Right)
+                    {
+                        this.RightScore += tile.Piece.Cost;
+                    }
                 }
             }
         }
@@ -349,6 +356,19 @@ public class GameManager : MonoBehaviour
         foreach (var tile in m_SpawnedTiles)
         {
             yield return RunAbilitiesFor<Trigger_OnSpawned>(tile);
+            if (tile.EndGame)
+            {
+                yield return RunAbilitiesFor<Trigger_OnSpawnedSafe>(tile);
+            }
+            else
+            {
+                yield return RunAbilitiesFor<Trigger_OnSpawnedUnsafe>(tile);
+            }
+
+            if (!Board.Instance.GetNeighbors(tile).Where(t => t != null && (!t.Piece.Empty && t.Phase == tile.Phase)).Any())
+            {
+                yield return RunAbilitiesFor<Trigger_OnSpawnedAlone>(tile);
+            }
         }
 
         m_SpawnedTiles.Clear();
@@ -410,7 +430,7 @@ public class GameManager : MonoBehaviour
 
     public void HardEndTurn()
     {
-        if (Turn >= 9)
+        if (Turn > 9)
         {
             SceneManager.LoadScene(0);
         }

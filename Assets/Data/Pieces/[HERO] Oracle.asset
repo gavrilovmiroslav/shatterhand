@@ -26,7 +26,7 @@ MonoBehaviour:
     space7: 0
     space8: 0
     space9: 0
-    space10: 1
+    space10: 0
     space11: 0
     space12: 0
     space13: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
     space23: 1
     space24: 0
     space25: 0
-    space26: 0
+    space26: 1
     space27: 0
     space28: 0
     space29: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
     space35: 0
     space36: 0
     space37: 0
-    space38: 1
+    space38: 0
     space39: 0
     space40: 0
     space41: 0

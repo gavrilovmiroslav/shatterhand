@@ -15,7 +15,7 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: d1e0d15921de0f94fa9b033788c7c648, type: 3}
   Cost: 3
   Name: Saint
-  Description: <b>+1</b> self and allies it supports at the end of turn.
+  Description: <b>+1</b> to allies it supports at the end of turn.
   Effect:
     space1: 0
     space2: 0
@@ -40,9 +40,9 @@ MonoBehaviour:
     space21: 0
     space22: 0
     space23: 1
-    space24: 0
+    space24: 1
     space25: 0
-    space26: 0
+    space26: 1
     space27: 1
     space28: 0
     space29: 0
@@ -69,5 +69,3 @@ MonoBehaviour:
   Abilities:
   - Trigger: {fileID: 11400000, guid: 59ea214bfef06f546a8f66472cbfcb0b, type: 2}
     Effect: {fileID: 11400000, guid: e30cc31c43ed273488b68853b89cb0c7, type: 2}
-  - Trigger: {fileID: 11400000, guid: 59ea214bfef06f546a8f66472cbfcb0b, type: 2}
-    Effect: {fileID: 11400000, guid: 631a42fbb0774c14a92c5e2a7b3faa48, type: 2}

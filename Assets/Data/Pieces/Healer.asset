@@ -15,8 +15,10 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: 22f87007a631571469e53d55476c3943, type: 3}
   Cost: 2
   Name: Healer
-  Description: When <b>distressed</b> or <b>removed</b>, <b>+1</b> to allies on all
-    adjacent tiles.
+  Description: '<b>Sustain +1</b>.
+
+    When <b>distressed</b> or <b>removed</b>,
+    <b>+1</b> to allies on all adjacent tiles.'
   Effect:
     space1: 0
     space2: 0
@@ -72,3 +74,5 @@ MonoBehaviour:
     Effect: {fileID: 11400000, guid: f1d081a68bc2fe044abe8e8be0fe24dd, type: 2}
   - Trigger: {fileID: 11400000, guid: 1178005e8e6d7224fbaa4ce02040aeed, type: 2}
     Effect: {fileID: 11400000, guid: f1d081a68bc2fe044abe8e8be0fe24dd, type: 2}
+  - Trigger: {fileID: 11400000, guid: c4cb7fd1defc8a04790e28343e5f98c7, type: 2}
+    Effect: {fileID: 11400000, guid: b0de9c3718447524d911fd463e8bccc0, type: 2}

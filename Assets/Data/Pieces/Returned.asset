@@ -15,7 +15,7 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: 29955942d4bd4fe42b4cb8acfe6a289f, type: 3}
   Cost: 2
   Name: Returned
-  Description: 
+  Description: If <b>spawned safe</b>, <b>drain -1</b> from self.
   Effect:
     space1: 0
     space2: 0
@@ -35,34 +35,37 @@ MonoBehaviour:
     space16: 0
     space17: 0
     space18: 0
-    space19: 0
-    space20: 0
-    space21: 0
+    space19: 1
+    space20: 1
+    space21: 1
     space22: 0
     space23: 0
     space24: 0
     space25: 0
-    space26: 0
-    space27: 0
-    space28: 0
+    space26: 1
+    space27: 1
+    space28: 1
     space29: 0
     space30: 0
-    space31: 1
-    space32: 1
+    space31: 0
+    space32: 0
     space33: 1
-    space34: 0
-    space35: 0
+    space34: 1
+    space35: 1
     space36: 0
     space37: 0
-    space38: 1
-    space39: 1
-    space40: 1
+    space38: 0
+    space39: 0
+    space40: 0
     space41: 0
     space42: 0
     space43: 0
     space44: 0
     space45: 0
-    space46: 1
+    space46: 0
     space47: 0
     space48: 0
     space49: 0
+  Abilities:
+  - Trigger: {fileID: 11400000, guid: 9f9308c4a93e87c4f949eed3c0b6b9b4, type: 2}
+    Effect: {fileID: 11400000, guid: c3678fff0bdda4c4fb3e3105ff69ace0, type: 2}

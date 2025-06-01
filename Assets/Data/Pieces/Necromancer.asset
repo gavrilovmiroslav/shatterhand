@@ -15,7 +15,10 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: 83c01d37506ea5e408430d3d8482e078, type: 3}
   Cost: 3
   Name: Necromancer
-  Description: When <b>removed</b>, <b>discard</b> a card.
+  Description: 'When <b>removed</b>, <b>discard</b> a card.
+
+    If <b>spawned alone</b>,
+    <b>grow +1</b>.'
   Effect:
     space1: 0
     space2: 0
@@ -32,26 +35,26 @@ MonoBehaviour:
     space13: 0
     space14: 0
     space15: 0
-    space16: 1
+    space16: 0
     space17: 0
-    space18: 1
+    space18: 0
     space19: 0
-    space20: 1
-    space21: 0
-    space22: 1
+    space20: 0
+    space21: 1
+    space22: 0
     space23: 0
-    space24: 1
+    space24: 0
     space25: 0
     space26: 1
-    space27: 0
+    space27: 1
     space28: 1
     space29: 0
-    space30: 1
+    space30: 0
     space31: 0
-    space32: 1
+    space32: 0
     space33: 0
-    space34: 1
-    space35: 0
+    space34: 0
+    space35: 1
     space36: 0
     space37: 0
     space38: 0
@@ -69,3 +72,5 @@ MonoBehaviour:
   Abilities:
   - Trigger: {fileID: 11400000, guid: 1178005e8e6d7224fbaa4ce02040aeed, type: 2}
     Effect: {fileID: 11400000, guid: 2681db246c27b5e4691d70b8543ad8c5, type: 2}
+  - Trigger: {fileID: 11400000, guid: 04969d92a7355f9429c349388883585a, type: 2}
+    Effect: {fileID: 11400000, guid: 631a42fbb0774c14a92c5e2a7b3faa48, type: 2}
