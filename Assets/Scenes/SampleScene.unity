@@ -603,7 +603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &248449857
 Transform:
   m_ObjectHideFlags: 0
@@ -4582,7 +4582,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1124095667313393283, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 1568124267914151310, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3985134638147440446, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 9138340800543105796, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
 --- !u!1001 &978110287
 PrefabInstance:
@@ -8684,7 +8696,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1124095667313393283, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 1568124267914151310, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3985134638147440446, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 9138340800543105796, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
 --- !u!4 &1941846040 stripped
 Transform:
@@ -13165,6 +13189,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1534711350}
     m_Modifications:
+    - target: {fileID: 610119049103308142, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 610119049103308142, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.3769997
+      objectReference: {fileID: 0}
+    - target: {fileID: 610119049103308142, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.70300007
+      objectReference: {fileID: 0}
     - target: {fileID: 894559604081042142, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
       propertyPath: m_fontSize
       value: 1.5
@@ -13196,6 +13232,30 @@ PrefabInstance:
     - target: {fileID: 1026059261180360821, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
       propertyPath: m_TagString
       value: Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 1364151361587355863, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.802
+      objectReference: {fileID: 0}
+    - target: {fileID: 1442524238540958071, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.3429997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1442524238540958071, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.301
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505549363452810153, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_Size.x
+      value: 1.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505549363452810153, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_Center.x
+      value: -0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505549363452810153, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_Center.y
+      value: 0.24
       objectReference: {fileID: 0}
     - target: {fileID: 1507854033261821690, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
       propertyPath: m_fontSize
@@ -13297,6 +13357,14 @@ PrefabInstance:
       propertyPath: Piece
       value: 
       objectReference: {fileID: 11400000, guid: 1bc5bb3ff1c04f94abfbaf9eb4a4d537, type: 2}
+    - target: {fileID: 3045142655523609350, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.061
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045142655523609350, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.923
+      objectReference: {fileID: 0}
     - target: {fileID: 3602081210154235996, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -13304,6 +13372,18 @@ PrefabInstance:
     - target: {fileID: 4523028029474429387, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547336880600307135, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.692
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547336880600307135, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.961
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547336880600307135, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4907312719974524066, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
       propertyPath: m_fontSize
@@ -13348,7 +13428,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1124095667313393283, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 1568124267914151310, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3985134638147440446, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 9138340800543105796, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 8c5d7926753590142b3cf3e1de95d8e1, type: 3}
 --- !u!4 &5612432892255134263
 Transform:
